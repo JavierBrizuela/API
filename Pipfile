@@ -6,8 +6,20 @@ name = "pypi"
 [packages]
 django = "==4.2"
 djangorestframework = "*"
+pillow = "*"
+drf-spectacular = "*"
+djangorestframework-simplejwt = "*"
+faker = "*"
 
 [dev-packages]
 
 [requires]
 python_version = "3.12"
+
+[scripts]
+server          = "python manage.py runserver"
+migrate         = "python manage.py migrate"
+startapp        = "python manage.py startapp"
+makemigrations  = "python manage.py makemigrations"
+createsuperuser = "python manage.py createsuperuser"
+test            = "python manage.py test"
