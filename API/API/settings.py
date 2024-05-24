@@ -28,10 +28,12 @@ BASE_APPS = [
 ]
 THIRD_APPS = [
     'rest_framework',
+    'drf_spectacular',
+    'rest_framework_simplejwt',
 ]
 
 OWN_APPS = [
-    
+    'authentication',
 ]
 
 INSTALLED_APPS = BASE_APPS + THIRD_APPS + OWN_APPS
@@ -118,7 +120,37 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# Media files
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # path al directorio local
+MEDIA_URL = 'http://localhost:8000/media/'    # url para el desarrollo
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#Default user model
+AUTH_USER_MODEL = 'authentication.CustomUser'
+
+#Rest Framewor settings
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+# Simple jwt settings
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+}
+#Spectacular settings
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Your Project API',
+    'DESCRIPTION': 'Your project description',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    # OTHER SETTINGS
+}
